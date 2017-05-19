@@ -15,32 +15,30 @@
 # ./VBoxLinuxAdditions.run
 
 # our dependencies
+yum groupinstall -y 'Development Tools'
 yum install -y graphviz
-# TODO see http://www.mapequation.org/code.html#Linux
-
-
 
 #Install miniconda - remove any previous folders for miniconda
-rm -r /home/vagrant/miniconda2/ || true
+rm -r /home/vagrant/miniconda3/ || true
 for i in 1 2 3 4 5; do
-        wget -c http://repo.continuum.io/miniconda/Miniconda2-latest-Linux-x86_64.sh && break
+        wget -c http://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh && break
         sleep 15
         echo 'Retrying bash download'
 done
 
-bash Miniconda2-latest-Linux-x86_64.sh <<HERE1
+bash Miniconda3-latest-Linux-x86_64.sh <<HERE1
 yes
 \r
 \r
 yes
-miniconda2
+miniconda3
 no
 HERE1
 
 # import the Python dependencies
-/home/vagrant/miniconda2/bin/conda create --name nosonomy
+/home/vagrant/miniconda3/bin/conda create --name nosonomy
 for i in 1 2 3 4 5; do
-        /home/vagrant/miniconda2/bin/conda env update -n nosonomy -f /vagrant/environment.yml && break
+        /home/vagrant/miniconda3/bin/conda env update -n nosonomy -f /vagrant/environment.yml && break
 	sleep 15
 	echo 'Retrying conda env create'
 done
@@ -51,8 +49,15 @@ chmod a+x /root
 echo 'export PATH=$PATH:/home/vagrant/miniconda2/bin/' >> /home/vagrant/.bashrc
 echo 'source activate nosonomy' >> /home/vagrant/.bashrc
 
+# install infomap, see http://www.mapequation.org/code.html
+mkdir infomap
+cd infomap/
+curl -v http://www.mapequation.org/downloads/Infomap.zip >  Infomap.zip
+unzip Infomap.zip
+make
+
 # get data
-curl http://ctdbase.org/reports/CTD_diseases_pathways.csv.gz > /vagrant/data/
+curl http://ctdbase.org/reports/CTD_diseases_pathways.csv.gz > /vagrant/data/CTD_diseases_pathways.csv.gz
 echo 'Loaded data from Comparative Toxicogenomics Database'
 
 
