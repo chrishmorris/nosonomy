@@ -46,7 +46,7 @@ done
 #source activate root
 # allow vagrant user to traverse to ananconda folder
 chmod a+x /root
-echo 'export PATH=$PATH:/home/vagrant/miniconda2/bin/' >> /home/vagrant/.bashrc
+#echo 'export PATH=$PATH:/home/vagrant/miniconda3/bin/' >> /home/vagrant/.bashrc
 echo 'source activate nosonomy' >> /home/vagrant/.bashrc
 
 # install infomap, see http://www.mapequation.org/code.html
@@ -81,10 +81,10 @@ echo 'Loaded data from Comparative Toxicogenomics Database'
 
 #[Service]
 #Type=simple
-#Environment="PATH=/home/vagrant/miniconda2/bin:/usr/local/bin:/usr/bin"
+#Environment="PATH=/home/vagrant/miniconda3/bin:/usr/local/bin:/usr/bin"
 #PIDFile=/var/run/jupyter.pid
 #User=vagrant
-#ExecStart=/home/vagrant/miniconda2/bin/jupyter notebook --no-browser
+#ExecStart=/home/vagrant/miniconda3/bin/jupyter notebook --no-browser
 #WorkingDirectory=/vagrant/notebooks
 
 #[Install]
